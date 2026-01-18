@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema Online</title>
+</head>
+<body>
+
+<h1>Sistema Online</h1>
+<p>Frontend carregado com sucesso.</p>
+
+<script>
+  fetch("https://sistema-online.onrender.com/")
+    .then(r => r.json())
+    .then(d => console.log(d));
+</script>
+
+</body>
+</html>
