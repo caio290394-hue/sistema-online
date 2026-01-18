@@ -49,3 +49,28 @@ def estatisticas():
         "inqueritos": inq,
         "boletins": bol
     }
+
+@app.get("/inqueritos")
+def listar_inqueritos():
+    conn = conectar()
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM inquerito")
+    colunas = [d[0] for d in c.description]
+    dados = [dict(zip(colunas, row)) for row in c.fetchall()]
+
+    conn.close()
+    return dados
+
+
+@app.get("/boletins")
+def listar_boletins():
+    conn = conectar()
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM boletim")
+    colunas = [d[0] for d in c.description]
+    dados = [dict(zip(colunas, row)) for row in c.fetchall()]
+
+    conn.close()
+    return dados
