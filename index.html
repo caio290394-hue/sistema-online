@@ -1,18 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Sistema Online</title>
+<meta charset="UTF-8">
+<title>Sistema Online</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+button {
+  margin-right: 10px;
+  padding: 8px 14px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: left;
+}
+
+th {
+  background: #eee;
+}
+</style>
 </head>
 <body>
 
 <h1>Sistema Online</h1>
-<p>Frontend carregado com sucesso.</p>
+
+<button onclick="carregar('inqueritos')">Inquéritos</button>
+<button onclick="carregar('boletins')">Boletins</button>
+
+<div id="conteudo"></div>
 
 <script>
-  fetch("https://sistema-online.onrender.com/")
+const API = "https://sistema-online.onrender.com";
+
+function carregar(tipo) {
+  fetch(`${API}/${tipo}`)
     .then(r => r.json())
-    .then(d => console.log(d));
+    .then(dados => {
+      if (dados.length === 0) {
+        document.getElementById("conteudo").innerHTML =
+          "<p>Nenhum registro encontrado.</p>";
+        return;
+      }
+
+      const colunas = Object.keys(dados[0]);
+      let html = "<table><tr>";
+
+      colunas.forEach(c => html += `<th>${c}</th>`);
+      html += "</tr>";
+
+      dados.forEach(linha => {
+        html += "<tr>";
+        colunas.forEach(c => html += `<td>${linha[c] ?? ""}</td>`);
+        html += "</tr>";
+      });
+
+      html += "</table>";
+      document.getElementById("conteudo").innerHTML = html;
+    });
+}
 </script>
 
 </body>
