@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Online</title>
+</head>
+<body>
+
+<h1>Sistema Online</h1>
+
+<button onclick="carregar()">Carregar Estatísticas</button>
+
+<pre id="saida"></pre>
+
+<script>
+const API = "https://sistema-online.onrender.com";
+
+function carregar() {
+    fetch(API + "/estatisticas")
+        .then(res => res.json())
+        .then(dados => {
+            document.getElementById("saida").innerText =
+                JSON.stringify(dados, null, 2);
+        });
+}
+</script>
+
+</body>
+</html>
